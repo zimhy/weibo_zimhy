@@ -7,6 +7,7 @@
 //
 
 #import "ZMHTableViewController.h"
+#import "ZMHWeiboTabBar.h"
 
 @interface ZMHTableViewController ()
 
@@ -16,12 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor orangeColor] ;
+   
+    //修改系统自带tabBar
+    [self setValue:[[ZMHWeiboTabBar alloc]init] forKey:@"tabBar"] ;
+     [self setupAllChilds] ;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,6 +42,42 @@
     return 0;
 }
 
+- (void) setupAllChilds {
+    
+    UIViewController *home  = [[UIViewController alloc] init] ;
+    //UITabBar *button = [[UITabBar alloc] init] ;
+
+    self.tabBar.selectedImageTintColor = [UIColor orangeColor] ;
+    home.tabBarItem.title = @"首页" ;
+    home.tabBarItem.image = [UIImage imageNamed:@"tabbar_home"] ;
+    home.view.backgroundColor = [UIColor blackColor] ;
+   // [home.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
+    [self addChildViewController:home] ;
+    UIViewController *message = [[UIViewController alloc] init] ;;
+    message.tabBarItem.image = [UIImage imageNamed:@"tabbar_message_center"];
+    message.tabBarItem.title = @"消息" ;
+    message.view.backgroundColor = [UIColor grayColor] ;
+    //[message.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
+    [self addChildViewController:message] ;
+    UIViewController *discover = [[UIViewController alloc] init] ;
+    discover.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
+   // [discover.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
+    discover.tabBarItem.title = @"发现" ;
+    discover.view.backgroundColor = [ UIColor greenColor];
+    
+    [self addChildViewController:discover] ;
+
+    UIViewController *profile = [[UIViewController alloc] init] ;
+    profile.tabBarItem.image = [UIImage imageNamed:@"tabbar_profile"];
+   // [profile.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
+    
+    profile.tabBarItem.title = @"设置" ;
+    profile.view.backgroundColor = [UIColor blueColor];
+    
+    [self addChildViewController:profile] ;
+    
+ 
+}
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
@@ -60,7 +97,7 @@
 */
 
 /*
-// Override to support editing the table view.
+// Override to support editing the table view.bbiejie
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source

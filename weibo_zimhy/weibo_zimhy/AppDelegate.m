@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZMHTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,10 +20,13 @@
     // Override point for customization after application launch.
     self.window  = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] ;
     self.window.backgroundColor = [UIColor yellowColor] ;
-    UITabBarController *tabVarVc  = [[UITabBarController alloc] init] ;
+    
+    ZMHTableViewController  *tabVarVc  = [[ZMHTableViewController alloc] init] ;
     self.window.rootViewController  = tabVarVc ;
-    tabVarVc.view.backgroundColor = [UIColor blueColor] ;
-    self.window.makeKeyAndVisible ;
+    
+    
+    
+    [self.window makeKeyAndVisible];
     
     
     return YES;
