@@ -8,6 +8,11 @@
 
 #import "ZMHTableViewController.h"
 #import "ZMHWeiboTabBar.h"
+#import "ZMHHomeViewController.h"
+#import "ZMHMessageViewController.h"
+#import "ZMHDiscoverController.h"
+#import "ZMHProfileViewController.h"
+
 
 @interface ZMHTableViewController ()
 
@@ -44,35 +49,35 @@
 
 - (void) setupAllChilds {
     
-    UIViewController *home  = [[UIViewController alloc] init] ;
+    ZMHHomeViewController *home  = [[ZMHHomeViewController alloc] init] ;
     //UITabBar *button = [[UITabBar alloc] init] ;
 
-    self.tabBar.selectedImageTintColor = [UIColor orangeColor] ;
+    self.tabBar.tintColor = [UIColor orangeColor] ;
     home.tabBarItem.title = @"首页" ;
     home.tabBarItem.image = [UIImage imageNamed:@"tabbar_home"] ;
-    home.view.backgroundColor = [UIColor blackColor] ;
+   // home.view.backgroundColor = [UIColor blackColor] ;
    // [home.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
     [self addChildViewController:home] ;
-    UIViewController *message = [[UIViewController alloc] init] ;;
+    ZMHMessageViewController *message = [[ZMHMessageViewController alloc] init] ;;
     message.tabBarItem.image = [UIImage imageNamed:@"tabbar_message_center"];
     message.tabBarItem.title = @"消息" ;
-    message.view.backgroundColor = [UIColor grayColor] ;
+    //message.view.backgroundColor = [UIColor grayColor] ;
     //[message.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
     [self addChildViewController:message] ;
-    UIViewController *discover = [[UIViewController alloc] init] ;
+    ZMHDiscoverController *discover = [[ZMHDiscoverController alloc] init] ;
     discover.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
    // [discover.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
     discover.tabBarItem.title = @"发现" ;
-    discover.view.backgroundColor = [ UIColor greenColor];
+    //discover.view.backgroundColor = [ UIColor greenColor];
     
     [self addChildViewController:discover] ;
 
-    UIViewController *profile = [[UIViewController alloc] init] ;
+    ZMHProfileViewController *profile = [[ZMHProfileViewController alloc] init] ;
     profile.tabBarItem.image = [UIImage imageNamed:@"tabbar_profile"];
    // [profile.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
     
     profile.tabBarItem.title = @"设置" ;
-    profile.view.backgroundColor = [UIColor blueColor];
+   // profile.view.backgroundColor = [UIColor blueColor];
     
     [self addChildViewController:profile] ;
     

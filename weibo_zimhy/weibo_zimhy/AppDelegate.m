@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "ZMHTableViewController.h"
+#import "ZMHOAuthViewController.h"
+#import "ZMHAccountTool.h"
+#import "ZMHAccount.h"
 
 @interface AppDelegate ()
 
@@ -21,13 +24,38 @@
     self.window  = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds] ;
     self.window.backgroundColor = [UIColor yellowColor] ;
     
-    ZMHTableViewController  *tabVarVc  = [[ZMHTableViewController alloc] init] ;
-    self.window.rootViewController  = tabVarVc ;
+    
+    // 注册通知
+    UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+    [application registerUserNotificationSettings:setting];
+    
+
+    
+    
+    // 选择根控制器
+    // 判断下有没有授权
+    if ([ZMHAccountTool account]) { // 已经授权
+        
+        // 选择根控制器
+        self.window.rootViewController = [[ZMHTableViewController alloc] init] ;
+        
+    }else{ // 进行授权
+        ZMHOAuthViewController *oauthVc = [[ZMHOAuthViewController alloc] init];
+        
+        // 设置窗口的根控制器
+        self.window.rootViewController = oauthVc;
+        
+    }
     
     
     
+    // 显示窗口
     [self.window makeKeyAndVisible];
+    // makeKeyAndVisible底层实现
+    // 1. application.keyWindow = self.window
+    // 2. self.window.hidden = NO;
     
+
     
     return YES;
 }
