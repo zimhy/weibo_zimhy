@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface ZMHStatusResult : NSObject
+#import "MJExtension.h"
+@interface ZMHStatusResult : NSObject<MJKeyValue>
+/**
+ *  用户的微博数组（CZStatus）
+ */
+@property (nonatomic, strong) NSArray *statuses;
+/**
+ *  用户最近微博总数
+ */
+@property (nonatomic, assign) int total_number;
 
 @end

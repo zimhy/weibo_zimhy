@@ -1,5 +1,5 @@
 //
-//  CZBadgeView.h
+//  ZMHBadgeView.h
 //  传智微博
 //
 //  Created by apple on 15-3-5.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CZBadgeView : UIButton
+@interface ZMHBadgeView : UIButton
 
 @property (nonatomic, copy) NSString *badgeValue;
 

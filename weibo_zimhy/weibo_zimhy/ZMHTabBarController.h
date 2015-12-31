@@ -1,5 +1,5 @@
 //
-//  CZTabBarController.h
+//  ZMHTabBarController.h
 //  传智微博
 //
 //  Created by apple on 15-3-4.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CZTabBarController : UITabBarController
+@interface ZMHTabBarController : UITabBarController
 
 @end

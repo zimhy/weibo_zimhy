@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZMHStatusFrame.h"
+@class ZMHStatusFrame;
 @interface ZMHRetweetView : UIImageView
-
+@property (nonatomic, strong) ZMHStatusFrame *statusF;
 @end

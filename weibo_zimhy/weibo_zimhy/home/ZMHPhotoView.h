@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZMHPhoto.h"
+@class ZMHPhoto ;
 @interface ZMHPhotoView : UIImageView
-
+@property (nonatomic, strong) ZMHPhoto *photo;
 @end

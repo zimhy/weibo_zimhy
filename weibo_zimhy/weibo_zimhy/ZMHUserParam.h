@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface ZMHUserParam : NSObject
+@property (nonatomic, copy) NSString *access_token;
+@property (nonatomic, copy) NSString *uid;
+
++ (instancetype)param;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  CZStatusToolBar.h
+//  ZMHStatusToolBar.h
 //  传智微博
 //
 //  Created by apple on 15-3-11.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CZStatus;
-@interface CZStatusToolBar : UIImageView
+@class ZMHStatus;
+@interface ZMHStatusToolBar : UIImageView
 
-@property (nonatomic, strong) CZStatus *status;
+@property (nonatomic, strong) ZMHStatus *status;
 
 @end

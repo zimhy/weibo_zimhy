@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ZMHHomeViewController : UITableViewController
-
+- (void)refresh;
 @end

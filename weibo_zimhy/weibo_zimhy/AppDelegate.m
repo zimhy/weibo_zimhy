@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ZMHTableViewController.h"
+#import "ZMHTabBarController.h"
 #import "ZMHOAuthViewController.h"
 #import "ZMHAccountTool.h"
 #import "ZMHAccount.h"
@@ -37,7 +37,7 @@
     if ([ZMHAccountTool account]) { // 已经授权
         
         // 选择根控制器
-        self.window.rootViewController = [[ZMHTableViewController alloc] init] ;
+        self.window.rootViewController = [[ZMHTabBarController alloc] init] ;
         
     }else{ // 进行授权
         ZMHOAuthViewController *oauthVc = [[ZMHOAuthViewController alloc] init];

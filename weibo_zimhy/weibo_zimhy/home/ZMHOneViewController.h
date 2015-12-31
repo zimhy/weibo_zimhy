@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZMHOneViewController : UIViewController
+@interface ZMHOneViewController : UITableViewController
 
 @end

@@ -1,38 +1,38 @@
 //
-//  CZTabBarController.m
+//  ZMHTabBarController.m
 //  传智微博
 //
 //  Created by apple on 15-3-4.
 //  Copyright (c) 2015年 apple. All rights reserved.
 //
 
-#import "CZTabBarController.h"
+#import "ZMHTabBarController.h"
 #import "UIImage+Image.h"
-#import "CZTabBar.h"
+#import "ZMHTabBar.h"
 
-#import "CZHomeViewController.h"
-#import "CZMessageViewController.h"
-#import "CZDiscoverViewController.h"
-#import "CZProfileViewController.h"
+#import "ZMHHomeViewController.h"
+#import "ZMHMessageViewController.h"
+#import "ZMHDiscoverController.h"
+#import "ZMHProfileViewController.h"
 
-#import "CZNavigationController.h"
+#import "ZMHNavigationController.h"
 
-#import "CZUserTool.h"
-#import "CZUserResult.h"
+#import "ZMHUserTool.h"
+#import "ZMHUserResult.h"
 
-@interface CZTabBarController ()<CZTabBarDelegate>
+@interface ZMHTabBarController ()<ZMHTabBarDelegate>
 
 @property (nonatomic, strong) NSMutableArray *items;
 
-@property (nonatomic, weak) CZHomeViewController *home;
+@property (nonatomic, weak) ZMHHomeViewController *home;
 
-@property (nonatomic, weak) CZMessageViewController *message;
+@property (nonatomic, weak) ZMHMessageViewController *message;
 
-@property (nonatomic, weak) CZProfileViewController *profile;
+@property (nonatomic, weak) ZMHProfileViewController *profile;
 
 @end
 
-@implementation CZTabBarController
+@implementation ZMHTabBarController
 
 - (NSMutableArray *)items
 {
@@ -64,7 +64,7 @@
 
 
     // 请求微博的未读数
-    [CZUserTool unreadWithSuccess:^(CZUserResult *result) {
+    [ZMHUserTool unreadWithSuccess:^(ZMHUserResult *result) {
 
         // 设置首页未读数
         _home.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.status];
@@ -87,7 +87,7 @@
 - (void)setUpTabBar
 {
     // 自定义tabBar
-    CZTabBar *tabBar = [[CZTabBar alloc] initWithFrame:self.tabBar.frame];
+    ZMHTabBar *tabBar = [[ZMHTabBar alloc] initWithFrame:self.tabBar.frame];
     tabBar.backgroundColor = [UIColor whiteColor];
     
     // 设置代理
@@ -104,7 +104,7 @@
 }
 
 #pragma mark - 当点击tabBar上的按钮调用
-- (void)tabBar:(CZTabBar *)tabBar didClickButton:(NSInteger)index
+- (void)tabBar:(ZMHTabBar *)tabBar didClickButton:(NSInteger)index
 {
     if (index == 0 && self.selectedIndex == index) { // 点击首页，刷新
         [_home refresh];
@@ -127,25 +127,25 @@
 - (void)setUpAllChildViewController
 {
     // 首页
-    CZHomeViewController *home = [[CZHomeViewController alloc] init];
+    ZMHHomeViewController *home = [[ZMHHomeViewController alloc] init];
     
     [self setUpOneChildViewController:home image:[UIImage imageNamed:@"tabbar_home"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_home_selected"] title:@"首页"];
     _home = home;
     
     
     // 消息
-    CZMessageViewController *message = [[CZMessageViewController alloc] init];
+    ZMHMessageViewController *message = [[ZMHMessageViewController alloc] init];
     [self setUpOneChildViewController:message image:[UIImage imageNamed:@"tabbar_message_center"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_message_center_selected"] title:@"消息"];
     _message = message;
     
     // 发现
-    CZDiscoverViewController *discover = [[CZDiscoverViewController alloc] init];
+    ZMHDiscoverController *discover = [[ZMHDiscoverController alloc] init];
     [self setUpOneChildViewController:discover image:[UIImage imageNamed:@"tabbar_discover"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_discover_selected"] title:@"发现"];
 
     
 
     // 我
-    CZProfileViewController *profile = [[CZProfileViewController alloc] init];
+    ZMHProfileViewController *profile = [[ZMHProfileViewController alloc] init];
     [self setUpOneChildViewController:profile image:[UIImage imageNamed:@"tabbar_profile"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_profile_selected"] title:@"我"];
     _profile = profile;
 }
@@ -167,7 +167,7 @@
     // 保存tabBarItem模型到数组
     [self.items addObject:vc.tabBarItem];
     
-    CZNavigationController *nav = [[CZNavigationController alloc] initWithRootViewController:vc];
+    ZMHNavigationController *nav = [[ZMHNavigationController alloc] initWithRootViewController:vc];
 
     [self addChildViewController:nav];
 }

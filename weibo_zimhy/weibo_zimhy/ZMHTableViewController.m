@@ -12,129 +12,162 @@
 #import "ZMHMessageViewController.h"
 #import "ZMHDiscoverController.h"
 #import "ZMHProfileViewController.h"
+#import "ZMHUserTool.h"
+#import "ZMHTabBar.h"
+#import "ZMHNavigationController.h"
 
 
 @interface ZMHTableViewController ()
 
+
+@property (nonatomic, strong) NSMutableArray *items;
+
+@property (nonatomic, weak) ZMHHomeViewController *home;
+
+@property (nonatomic, weak) ZMHMessageViewController *message;
+
+@property (nonatomic, weak) ZMHProfileViewController *profile;
+
+
 @end
 
-@implementation ZMHTableViewController
+@implementation ZMHTableViewController- (NSMutableArray *)items
+{
+    if (_items == nil) {
+        
+        _items = [NSMutableArray array];
+        
+    }
+    return _items;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor orangeColor] ;
-   
-    //修改系统自带tabBar
-    [self setValue:[[ZMHWeiboTabBar alloc]init] forKey:@"tabBar"] ;
-     [self setupAllChilds] ;
+    // Do any additional setup after loading the view.
+    
+    // 添加所有子控制器
+    [self setUpAllChildViewController];
+    
+    // 自定义tabBar
+    [self setUpTabBar];
+    
+    // 每隔一段时间请求未读数
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(requestUnread) userInfo:nil repeats:YES];
+}
+
+// 请求未读数
+- (void)requestUnread
+{
+    
+    
+    // 请求微博的未读数
+    [ZMHUserTool unreadWithSuccess:^(ZMHUserResult *result) {
+        
+        // 设置首页未读数
+        _home.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.status];
+        
+        // 设置消息未读数
+        _message.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.messageCount];
+        
+        // 设置我的未读数
+        _profile.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",result.follower];
+        
+        // 设置应用程序所有的未读数
+        [UIApplication sharedApplication].applicationIconBadgeNumber = result.totoalCount;
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+#pragma mark - 设置tabBar
+- (void)setUpTabBar
+{
+    // 自定义tabBar
+    ZMHTabBar *tabBar = [[ZMHTabBar alloc] initWithFrame:self.tabBar.frame];
+    tabBar.backgroundColor = [UIColor whiteColor];
+    
+    // 设置代理
+    tabBar.delegate = self;
+    
+    // 给tabBar传递tabBarItem模型
+    tabBar.items = self.items;
+    
+    // 添加自定义tabBar
+    [self.view addSubview:tabBar];
+    
+    // 移除系统的tabBar
+    [self.tabBar removeFromSuperview];
+}
+
+#pragma mark - 当点击tabBar上的按钮调用
+- (void)tabBar:(ZMHTabBar *)tabBar didClickButton:(NSInteger)index
+{
+    if (index == 0 && self.selectedIndex == index) { // 点击首页，刷新
+        [_home refresh];
+    }
+    
+    self.selectedIndex = index;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+    
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-- (void) setupAllChilds {
+#pragma mark - 添加所有的子控制器
+- (void)setUpAllChildViewController
+{
+    // 首页
+    ZMHHomeViewController *home = [[ZMHHomeViewController alloc] init];
     
-    ZMHHomeViewController *home  = [[ZMHHomeViewController alloc] init] ;
-    //UITabBar *button = [[UITabBar alloc] init] ;
-
-    self.tabBar.tintColor = [UIColor orangeColor] ;
-    home.tabBarItem.title = @"首页" ;
-    home.tabBarItem.image = [UIImage imageNamed:@"tabbar_home"] ;
-   // home.view.backgroundColor = [UIColor blackColor] ;
-   // [home.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
-    [self addChildViewController:home] ;
-    ZMHMessageViewController *message = [[ZMHMessageViewController alloc] init] ;;
-    message.tabBarItem.image = [UIImage imageNamed:@"tabbar_message_center"];
-    message.tabBarItem.title = @"消息" ;
-    //message.view.backgroundColor = [UIColor grayColor] ;
-    //[message.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
-    [self addChildViewController:message] ;
-    ZMHDiscoverController *discover = [[ZMHDiscoverController alloc] init] ;
-    discover.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
-   // [discover.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
-    discover.tabBarItem.title = @"发现" ;
-    //discover.view.backgroundColor = [ UIColor greenColor];
+    [self setUpOneChildViewController:home image:[UIImage imageNamed:@"tabbar_home"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_home_selected"] title:@"首页"];
+    _home = home;
     
-    [self addChildViewController:discover] ;
-
-    ZMHProfileViewController *profile = [[ZMHProfileViewController alloc] init] ;
-    profile.tabBarItem.image = [UIImage imageNamed:@"tabbar_profile"];
-   // [profile.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor orangeColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal] ;
     
-    profile.tabBarItem.title = @"设置" ;
-   // profile.view.backgroundColor = [UIColor blueColor];
+    // 消息
+    ZMHMessageViewController *message = [[ZMHMessageViewController alloc] init];
+    [self setUpOneChildViewController:message image:[UIImage imageNamed:@"tabbar_message_center"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_message_center_selected"] title:@"消息"];
+    _message = message;
     
-    [self addChildViewController:profile] ;
+    // 发现
+    ZMHDiscoverController *discover = [[ZMHDiscoverController alloc] init];
+    [self setUpOneChildViewController:discover image:[UIImage imageNamed:@"tabbar_discover"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_discover_selected"] title:@"发现"];
     
- 
-}
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
     
-    return cell;
+    // 我
+    ZMHProfileViewController *profile = [[ZMHProfileViewController alloc] init];
+    [self setUpOneChildViewController:profile image:[UIImage imageNamed:@"tabbar_profile"] selectedImage:[UIImage imageWithOriginalName:@"tabbar_profile_selected"] title:@"我"];
+    _profile = profile;
 }
-*/
+// navigationItem决定导航条上的内容
+// 导航条上的内容由栈顶控制器的navigationItem决定
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+#pragma mark - 添加一个子控制器
+- (void)setUpOneChildViewController:(UIViewController *)vc image:(UIImage *)image selectedImage:(UIImage *)selectedImage title:(NSString *)title
+{
+    //    // navigationItem模型
+    //    vc.navigationItem.title = title;
+    //
+    //    // 设置子控件对应tabBarItem的模型属性
+    //    vc.tabBarItem.title = title;
+    vc.title = title;
+    vc.tabBarItem.image = image;
+    vc.tabBarItem.selectedImage = selectedImage;
+    
+    // 保存tabBarItem模型到数组
+    [self.items addObject:vc.tabBarItem];
+    
+    ZMHNavigationController *nav = [[ZMHNavigationController alloc] initWithRootViewController:vc];
+    
+    [self addChildViewController:nav];
 }
-*/
 
-/*
-// Override to support editing the table view.bbiejie
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

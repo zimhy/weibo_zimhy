@@ -1,14 +1,14 @@
 //
-//  CZStatusToolBar.m
+//  ZMHStatusToolBar.m
 //  传智微博
 //
 //  Created by apple on 15-3-11.
 //  Copyright (c) 2015年 apple. All rights reserved.
 //
-#import "CZStatus.h"
-#import "CZStatusToolBar.h"
+#import "ZMHStatus.h"
+#import "ZMHStatusToolBar.h"
 
-@interface CZStatusToolBar ()
+@interface ZMHStatusToolBar ()
 
 @property (nonatomic, strong) NSMutableArray *btns;
 @property (nonatomic, strong) NSMutableArray *divideVs;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation CZStatusToolBar
+@implementation ZMHStatusToolBar
 
 - (NSMutableArray *)btns
 {
@@ -95,7 +95,7 @@
     
     // 设置按钮的frame
     NSUInteger count = self.btns.count;
-    CGFloat w = CZScreenW / count;
+    CGFloat w = ZMHScreenW / count;
     CGFloat h = self.height;
     CGFloat x = 0;
     CGFloat y = 0;
@@ -115,7 +115,7 @@
     
 }
 
-- (void)setStatus:(CZStatus *)status
+- (void)setStatus:(ZMHStatus *)status
 {
     _status = status;
     

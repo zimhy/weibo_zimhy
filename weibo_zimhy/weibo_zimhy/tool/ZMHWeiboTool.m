@@ -36,7 +36,8 @@
 //    }];
 //}
 
-+ (void)GET:(NSString *)URLString parameters:(id)parameters NSProgress:(id)progress
++ (void)GET:(NSString *)URLString parameters:(id)parameters
+ //NSProgress:(id)progress
     success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
     failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 
@@ -44,12 +45,15 @@
     
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    NSLog(URLString) ;
    [mgr GET:URLString parameters:parameters success:success    failure:failure
     ];
 }
 
 
-+ (void)Post:(NSString *)URLString parameters:(id)parameters  NSProgress:(id)progress
++ (void)Post:(NSString *)URLString parameters:(id)parameters
+  //NSProgress:(id)progress
      success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
      failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 
@@ -57,6 +61,8 @@
     // 创建请求管理者
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    NSLog(URLString) ;
     [mgr POST:URLString parameters:parameters success:success failure:failure];
 }
 

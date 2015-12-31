@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZMHStatusFrame.h"
+@class ZMHStatusFrame;
 
 @interface ZMHStatusCell : UITableViewCell
+@property (nonatomic, strong) ZMHStatusFrame *statusF;
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

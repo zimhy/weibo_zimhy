@@ -53,13 +53,11 @@ static ZMHAccount *_account;
     param.redirect_uri = ZMHRedirect_uri;
     NSProgress *progress  = [[NSProgress alloc]init] ;
     
-    [ZMHWeiboTool Post:@"https://api.weibo.com/oauth2/access_token" parameters:param.keyValues NSProgress:progress success:^(NSURLSessionDataTask * task ,id responseObject) {
+    [ZMHWeiboTool Post:@"https://api.weibo.com/oauth2/access_token" parameters:param.keyValues success:^(NSURLSessionDataTask * task ,id responseObject) {
         // 字典转模型
         ZMHAccount *account = [ZMHAccount accountWithDict:responseObject];
         
         // 保存账号信息:
-        // 数据存储一般我们开发中会搞一个业务类，专门处理数据的存储
-        // 以后我不想归档，用数据库，直接改业务类
         [ZMHAccountTool saveAccount:account];
         
         if (success) {

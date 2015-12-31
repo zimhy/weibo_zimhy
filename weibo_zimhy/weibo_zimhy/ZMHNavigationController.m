@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 apple. All rights reserved.
 //
 
-#import "UIBarButtonItem+Item.h"
+#import "UIBarButton+Item.h"
 #import "ZMHNavigationController.h"
 
 #import "ZMHTabBar.h"
 
-@interface UINavigationController ()<UINavigationControllerDelegate>
+@interface ZMHNavigationController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) id popDelegate;
 

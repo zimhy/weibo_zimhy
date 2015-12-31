@@ -1,5 +1,5 @@
 //
-//  CZTabBarButton.h
+//  ZMHTabBarButton.h
 //  传智微博
 //
 //  Created by apple on 15-3-5.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CZTabBarButton : UIButton
+@interface ZMHTabBarButton : UIButton
 
 @property (nonatomic, strong) UITabBarItem *item;
 

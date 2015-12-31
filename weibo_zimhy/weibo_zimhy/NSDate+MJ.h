@@ -1,13 +1,34 @@
 //
 //  NSDate+MJ.h
-//  weibo_zimhy
+//  ItcastWeibo
 //
-//  Created by menghaizhang on 15/12/30.
-//  Copyright © 2015年 menghaizhang. All rights reserved.
+//  Created by apple on 14-5-9.
+//  Copyright (c) 2014年 itcast. All rights reserved.
 //
 
-#ifndef NSDate_MJ_h
-#define NSDate_MJ_h
+#import <Foundation/Foundation.h>
 
+@interface NSDate (MJ)
+/**
+ *  是否为今天
+ */
+- (BOOL)isToday;
+/**
+ *  是否为昨天
+ */
+- (BOOL)isYesterday;
+/**
+ *  是否为今年
+ */
+- (BOOL)isThisYear;
 
-#endif /* NSDate_MJ_h */
+/**
+ *  返回一个只有年月日的时间
+ */
+- (NSDate *)dateWithYMD;
+
+/**
+ *  获得与当前时间的差距
+ */
+- (NSDateComponents *)deltaWithNow;
+@end

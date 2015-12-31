@@ -1,5 +1,5 @@
 //
-//  CZTabBar.h
+//  ZMHTabBar.h
 //  传智微博
 //
 //  Created by apple on 15-3-4.
@@ -8,23 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
-@class CZTabBar;
+@class ZMHTabBar;
 
-@protocol CZTabBarDelegate <NSObject>
+@protocol ZMHTabBarDelegate <NSObject>
 
 @optional
-- (void)tabBar:(CZTabBar *)tabBar didClickButton:(NSInteger)index;
+- (void)tabBar:(ZMHTabBar *)tabBar didClickButton:(NSInteger)index;
 
 @end
 
 
-@interface CZTabBar : UIView
+@interface ZMHTabBar : UIView
 
 //@property (nonatomic, assign) NSUInteger tabBarButtonCount;
 
 // items:保存每一个按钮对应tabBarItem模型
 @property (nonatomic, strong) NSArray *items;
 
-@property (nonatomic, weak) id<CZTabBarDelegate> delegate;
+@property (nonatomic, weak) id<ZMHTabBarDelegate> delegate;
 
 @end

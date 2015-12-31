@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZMHStatusFrame.h"
 
+@class ZMHStatusFrame;
 @interface ZMHOriginalView : UIImageView
-
+@property (nonatomic, strong) ZMHStatusFrame *statusF;
 @end

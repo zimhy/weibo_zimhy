@@ -21,7 +21,7 @@
  */
 + (void)GET:(NSString *)URLString
  parameters:(id)parameters
- NSProgress:progress
+// NSProgress:progress
     success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
     failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure;
 
@@ -36,7 +36,7 @@
  */
 + (void)Post:(NSString *)URLString
   parameters:(id)parameters
-    NSProgress:progress
+  //  NSProgress:progress
      success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success
      failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
 ;

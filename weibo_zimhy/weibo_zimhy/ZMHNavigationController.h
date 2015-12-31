@@ -1,5 +1,5 @@
 //
-//  CZNavigationController.h
+//  ZMHNavigationController.h
 //  传智微博
 //
 //  Created by apple on 15-3-7.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CZNavigationController : UINavigationController
+@interface ZMHNavigationController : UINavigationController
 
 @end
